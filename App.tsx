@@ -21,6 +21,13 @@ const fetchFont = () => {
     'product-sans-bold' : require('./assets/fonts/ProductSans-Bold.ttf'),
   })
 }
+
+async function fetchGuestData() {
+  const guestResponse = await fetch('http://www.mocky.io/v2/596dec7f0f000023032b8017');
+  const guestResult = await guestResponse.json();
+  guestData = guestResult;
+}
+
 const eventData = [
   {id:1,eventName:'Party',date:'12 April 2020',icon : 'drink'},
   {id:2,eventName:'Meeting',date:'23 April 2020',icon : 'new-message'},
@@ -33,13 +40,8 @@ const eventData = [
 
 ]
 
-const guestData = [
-  {id:1,name:"Andi",birthdate:"2014-01-01"},
-  {id:2,name:"Budi",birthdate:"2014-02-02"},
-  {id:3,name:"Charlie",birthdate:"2014-03-03"},
-  {id:4,name:"Dede",birthdate:"2014-06-06"},
-  {id:5,name:"Joko",birthdate:"2014-02-12"}
-]
+let guestData = []
+
 function LoginScreenRoute({ navigation }) {
   return (
     <LoginScreen 
@@ -68,7 +70,7 @@ function GuestScreenRoute ({ navigation, route }) {
 
 export default function App() {
   const [dataLoaded, setDataLoaded] = React.useState(false);
-
+  fetchGuestData();
   if(!dataLoaded) {
     return (
       <AppLoading

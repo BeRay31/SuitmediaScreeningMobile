@@ -24,8 +24,8 @@ const GuestList = (props) => {
                 <MaterialIcons name= 'person' size = {40} color='#fff'/>
             </View>
             <View style = {[styles.container,{justifyContent:'center'}]}>
-                <Text style={styles.textBanner}>{props.data.name}</Text>
-                <Text style={styles.textBanner}>{props.data.birthdate}</Text>
+                <Text style={styles.textBanner}>Nama : {props.data.name}</Text>
+                <Text style={styles.textBanner}>Tanggal Lahir : {props.data.birthdate}</Text>
             </View>
         </TouchableOpacity>
     )
