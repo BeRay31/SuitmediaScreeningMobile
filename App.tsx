@@ -1,0 +1,126 @@
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
+
+import LoginScreen from './screen/LoginScreen';
+import HomeScreen from './screen/HomeScreen';
+import EventScreen from './screen/EventScreen';
+import GuestScreen from './screen/GuestScreen';
+
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
+
+const Stack = createStackNavigator();
+
+const fetchFont = () => {
+  return Font.loadAsync({
+    'product-sans-regular' : require('./assets/fonts/ProductSans-Regular.ttf'),
+    'product-sans-medium' : require('./assets/fonts/ProductSans-Medium.ttf'),
+    'product-sans-bold' : require('./assets/fonts/ProductSans-Bold.ttf'),
+  })
+}
+const eventData = [
+  {id:1,eventName:'Party',date:'12 April 2020',icon : 'drink'},
+  {id:2,eventName:'Meeting',date:'23 April 2020',icon : 'new-message'},
+  {id:3,eventName:'Medical Check Up',date:'29 April 2020',icon : 'squared-plus'},
+  {id:4,eventName:'Project Deadline',date:'05 May 2020',icon : 'laptop'},
+  {id:5,eventName:'Fine Dinner',date:'06 May 2020',icon : 'moon'},
+  {id:6,eventName:'Travelling',date:'10 May 2020',icon : 'map'},
+  {id:7,eventName:'Tech Seminar',date:'12 May 2020',icon : 'network'},
+  {id:8,eventName:'Intern Starts',date:'04 June 2020',icon : 'rocket'},
+
+]
+
+const guestData = [
+  {id:1,name:"Andi",birthdate:"2014-01-01"},
+  {id:2,name:"Budi",birthdate:"2014-02-02"},
+  {id:3,name:"Charlie",birthdate:"2014-03-03"},
+  {id:4,name:"Dede",birthdate:"2014-06-06"},
+  {id:5,name:"Joko",birthdate:"2014-02-12"}
+]
+function LoginScreenRoute({ navigation }) {
+  return (
+    <LoginScreen 
+      onLogin={(itemState)=>{navigation.navigate('HomeScreenRoute',itemState)}}
+      />
+  )
+}
+
+function HomeScreenRoute ({ navigation, route }) {
+  return (
+    <HomeScreen stateForm={route.params} onPressEvent={()=>navigation.navigate('EventScreenRoute',eventData)} onPressGuest={()=>navigation.navigate('GuestScreenRoute',guestData)}/>
+  )
+}
+
+function EventScreenRoute ({ navigation, route }) {
+  return (
+    <EventScreen data={route.params} onPressSec = {(itemState)=>navigation.navigate('HomeScreenRoute',itemState)}/>
+  )
+}
+
+function GuestScreenRoute ({ navigation, route }) {
+  return (
+    <GuestScreen data={route.params} onPressSec = {(itemState)=>navigation.navigate('HomeScreenRoute',itemState)}/>
+  )
+}
+
+export default function App() {
+  const [dataLoaded, setDataLoaded] = React.useState(false);
+
+  if(!dataLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFont}
+        onFinish={()=> setDataLoaded(true)}
+      />
+    );
+  }
+  return (
+    <NavigationContainer>
+    <Stack.Navigator
+      initialRouteName = 'LoginScreen'
+      headerMode = 'screen' 
+    >
+      <Stack.Screen 
+        name='LoginScreen'
+        component={LoginScreenRoute}
+        options={{
+          headerShown : false,
+        }} 
+      />
+      <Stack.Screen
+        name='HomeScreenRoute'
+        component ={HomeScreenRoute}
+        options={{
+          headerShown : false,
+
+        }}/>
+      <Stack.Screen
+        name='EventScreenRoute'
+        component ={EventScreenRoute}
+        options={{
+          headerShown : false,
+
+        }}/>
+        <Stack.Screen
+        name='GuestScreenRoute'
+        component ={GuestScreenRoute}
+        options={{
+          headerShown : false,
+
+        }}/>
+    </Stack.Navigator>
+  </NavigationContainer>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
