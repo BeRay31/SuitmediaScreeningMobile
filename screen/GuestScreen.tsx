@@ -10,11 +10,26 @@ import {
     KeyboardAvoidingView,
     View,
     StatusBar,
-    FlatList
+    Alert
 } from 'react-native';
-
+let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+];
 
 const GuestList = (props) => {
+    let date = new Date(props.data.birthdate);
+    let strDate = date.getDate() +" "+months[date.getMonth()]+" "+date.getFullYear();
     return(
         <TouchableOpacity 
             style={styles.doneButton}
@@ -25,7 +40,7 @@ const GuestList = (props) => {
             </View>
             <View style = {[styles.container,{justifyContent:'center'}]}>
                 <Text style={styles.textBanner}>Nama : {props.data.name}</Text>
-                <Text style={styles.textBanner}>Tanggal Lahir : {props.data.birthdate}</Text>
+                <Text style={styles.textBanner}>Birthdate : {strDate}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -35,6 +50,14 @@ const GuestList = (props) => {
 export default class GuestScreen extends React.Component {
     state = {
         guestName : "Pilih Guest",
+    }
+    isPrime(num) {
+        for(let i = 1;i<num;i++) {
+            if(i != 1 && num % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
     render() {
         return (
@@ -51,6 +74,37 @@ export default class GuestScreen extends React.Component {
                         
                         <GuestList data={d} pressed={()=>
                             {
+                                let date = new Date(d.date);
+                                let val = date.getDate();
+                                let month = date.getMonth()+1;
+                                let phone = "";
+                                if(val%2==0 && val%3 ==0) {
+                                    phone = "iOS";
+                                } else if(val % 2 ==0) {
+                                    phone = "blackberry";
+                                } else if (val % 3 ==0) {
+                                    phone = "android";
+                                } else {
+                                    phone = "phone";
+                                }
+                                if(this.isPrime(month)) {
+                                    Alert.alert(
+                                        'Month Prime Checker & Phone Alert',
+                                        `Month is Prime \n\t${phone}`,                                        [
+                                            {text : 'OK'}
+                                        ],
+                                        {cancelable : true}
+                                    )
+                                } else {
+                                    Alert.alert(
+                                        'Month Prime Checker',
+                                        `Month isn't Prime \n\t${phone}`,
+                                        [
+                                            {text : 'OK'}
+                                        ],
+                                        {cancelable : true}
+                                    ) 
+                                }
                                 return this.props.onPressSec(d)
                             }
                         }/>

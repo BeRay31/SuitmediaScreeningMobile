@@ -10,22 +10,40 @@ import {
     KeyboardAvoidingView,
     View,
     StatusBar,
-    FlatList
 } from 'react-native';
+
+let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+];
 
 
 const EventItems = (props) => {
+    let date = new Date(props.data.date);
+    let strDate = date.getDate() +" "+months[date.getMonth()]+" "+date.getFullYear();
     return(
         <TouchableOpacity 
             style={styles.doneButton}
             onPress={()=>{
-                props.pressed()}}>
+                
+                props.pressed()
+                }}>
             <View style = {styles.profilePict}>
                 <Entypo name={props.data.icon} size = {40} color='#fff'/>
             </View>
             <View style = {[styles.container,{justifyContent:'center'}]}>
                 <Text style={styles.textBanner}>{props.data.eventName}</Text>
-                <Text style={styles.textBanner}>{props.data.date}</Text>
+                <Text style={styles.textBanner}>{strDate}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -36,6 +54,7 @@ export default class EventScreen extends React.Component {
     state = {
         eventName : "Pilih Event",
     }
+    
     render() {
         return (
             <ImageBackground

@@ -34,47 +34,6 @@ export default class LoginScreen extends React.Component {
         }
         if(this.props.stateForm.name != this.state.guestName && this.props.stateForm.name != undefined) {
             this.setState({guestName : this.props.stateForm.name})
-            if(this.props.stateForm.birthdate != '') {
-                let val = this.props.stateForm.birthdate[8] + this.props.stateForm.birthdate[9];
-                val = parseInt(val);
-                if (val % 2 == 0 && val % 3 == 0) {
-                    Alert.alert(
-                        'Date Alert',
-                        'iOS',
-                        [
-                            {text : 'OK'}
-                        ],
-                        {cancelable : true}
-                    )
-                }else if(val % 2 == 0) {
-                    Alert.alert(
-                        'Date Alert',
-                        'blackberrry',
-                        [
-                            {text : 'OK'}
-                        ],
-                        {cancelable : true}
-                    )
-                } else if (val % 3 == 0) {
-                    Alert.alert(
-                        'Date Alert',
-                        'android',
-                        [
-                            {text : 'OK'}
-                        ],
-                        {cancelable : true}
-                    )
-                } else {
-                    Alert.alert(
-                        'Date Alert',
-                        'phone',
-                        [
-                            {text : 'OK'}
-                        ],
-                        {cancelable : true}
-                    )
-                }
-            }
         }
         return (
             <ImageBackground

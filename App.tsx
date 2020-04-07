@@ -29,14 +29,14 @@ async function fetchGuestData() {
 }
 
 const eventData = [
-  {id:1,eventName:'Party',date:'12 April 2020',icon : 'drink'},
-  {id:2,eventName:'Meeting',date:'23 April 2020',icon : 'new-message'},
-  {id:3,eventName:'Medical Check Up',date:'29 April 2020',icon : 'squared-plus'},
-  {id:4,eventName:'Project Deadline',date:'05 May 2020',icon : 'laptop'},
-  {id:5,eventName:'Fine Dinner',date:'06 May 2020',icon : 'moon'},
-  {id:6,eventName:'Travelling',date:'10 May 2020',icon : 'map'},
-  {id:7,eventName:'Tech Seminar',date:'12 May 2020',icon : 'network'},
-  {id:8,eventName:'Intern Starts',date:'04 June 2020',icon : 'rocket'},
+  {id:1,eventName:'Party',date:'2020-04-12',icon : 'drink'},
+  {id:2,eventName:'Meeting',date:'2020-04-23',icon : 'new-message'},
+  {id:3,eventName:'Medical Check Up',date:'2020-04-29',icon : 'squared-plus'},
+  {id:4,eventName:'Project Deadline',date:'2020-04-05',icon : 'laptop'},
+  {id:5,eventName:'Fine Dinner',date:'2020-04-06',icon : 'moon'},
+  {id:6,eventName:'Travelling',date:'2020-04-10',icon : 'map'},
+  {id:7,eventName:'Tech Seminar',date:'2020-05-12',icon : 'network'},
+  {id:8,eventName:'Intern Starts',date:'2020-06-04',icon : 'rocket'},
 
 ]
 

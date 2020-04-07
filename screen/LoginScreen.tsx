@@ -25,6 +25,15 @@ export default class LoginScreen extends React.Component {
     state = {
         nama : "",
     }
+    isPalindrom() {
+        let trimName = this.state.nama.toLowerCase().trim();
+        for(let i=0,j=trimName.length-1; i<trimName.length && i<=j; i++,j--) {
+            if(trimName[i] != trimName[j]) {
+                return false;
+            }
+        }
+        return true
+    }
     render() {
         return (
             <ImageBackground
@@ -54,7 +63,23 @@ export default class LoginScreen extends React.Component {
                             />
                     </View>
                 </KeyboardAvoidingView>
-                <TouchableOpacity style ={{padding : 10}} onPress = {(this.state.nama.length>3) ? ()=>this.props.onLogin(this.state) : al} >
+                <TouchableOpacity style ={{padding : 10}} onPress = {(this.state.nama.length>3) ? ()=>{
+                    let palindrom;
+                    if(this.isPalindrom()) {
+                        palindrom = "Name Is Palindrom!"
+                    } else {
+                        palindrom = "Name Isn't Palindrom!"
+                    }
+                    Alert.alert(
+                        'Palindrom Check',
+                         palindrom,
+                        [
+                            {text : 'OK'}
+                        ],
+                        {cancelable : true}
+                    )
+                    return this.props.onLogin(this.state)
+                    } : al} >
                     <View style={[styles.doneButton,]}>
                         <Text style={styles.textBanner}>Selesai</Text>
                     </View>

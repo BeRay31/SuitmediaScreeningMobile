@@ -23,6 +23,12 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "android": {
+      "package": "com.Beray.suitmediaIntern",
+      "versionCode": 1
+    },
+    "description": "",
+    "githubUrl": "https://github.com/BeRay31/SuitmediaScreeningMobile"
   }
 }
