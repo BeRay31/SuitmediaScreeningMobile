@@ -74,9 +74,9 @@ export default class GuestScreen extends React.Component {
                         
                         <GuestList data={d} pressed={()=>
                             {
-                                let date = new Date(d.date);
-                                let val = date.getDate();
-                                let month = date.getMonth()+1;
+                                let dated = new Date(d.birthdate);
+                                let val = dated.getDate();
+                                let month = dated.getMonth()+1;
                                 let phone = "";
                                 if(val%2==0 && val%3 ==0) {
                                     phone = "iOS";

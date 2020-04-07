@@ -8,7 +8,7 @@ import LoginScreen from './screen/LoginScreen';
 import HomeScreen from './screen/HomeScreen';
 import EventScreen from './screen/EventScreen';
 import GuestScreen from './screen/GuestScreen';
-
+import MapViewScreen from './screen/MapViewScreen';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
@@ -58,13 +58,19 @@ function HomeScreenRoute ({ navigation, route }) {
 
 function EventScreenRoute ({ navigation, route }) {
   return (
-    <EventScreen data={route.params} onPressSec = {(itemState)=>navigation.navigate('HomeScreenRoute',itemState)}/>
+    <EventScreen data={route.params} onPressSec = {(itemState)=>navigation.navigate('HomeScreenRoute',itemState)} back={()=>navigation.navigate('HomeScreenRoute')} addBtn={()=>navigation.navigate('MapViewRoute',eventData)}/>
   )
 }
 
 function GuestScreenRoute ({ navigation, route }) {
   return (
     <GuestScreen data={route.params} onPressSec = {(itemState)=>navigation.navigate('HomeScreenRoute',itemState)}/>
+  )
+}
+
+function MapViewRoute ({ navigation, route }) {
+  return (
+    <MapViewScreen data={route.params} onPressSec = {(itemState)=>navigation.navigate('HomeScreenRoute',itemState)} back={()=>navigation.navigate('EventScreenRoute')}/>
   )
 }
 
@@ -109,6 +115,12 @@ export default function App() {
         <Stack.Screen
         name='GuestScreenRoute'
         component ={GuestScreenRoute}
+        options={{
+          headerShown : false,
+        }}/>
+        <Stack.Screen
+        name='MapViewRoute'
+        component ={MapViewRoute}
         options={{
           headerShown : false,
 

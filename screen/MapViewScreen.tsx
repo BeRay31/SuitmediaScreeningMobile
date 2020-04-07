@@ -28,36 +28,37 @@ let months = [
 ];
 
 
-const EventItems = (props) => {
+const MapItems = (props) => {
     let date = new Date(props.data.date);
     let strDate = date.getDate() +" "+months[date.getMonth()]+" "+date.getFullYear();
     return(
-        <TouchableOpacity 
-            style={[styles.doneButton,{backgroundColor : '#fff',paddingHorizontal : 10, elevation : 2}]}
-            onPress={()=>{
-                props.pressed()
-            }}>
-            <View style = {[styles.container,{justifyContent:'flex-start',paddingHorizontal :5}]}>
-                <Text style={[styles.textBanner,{color: '#000',fontSize : 20,marginBottom : 5}]}>{props.data.eventName}</Text>
-                <Text style={styles.textBanner}>{strDate}</Text>
-                <Text style={[styles.textBanner,{color: '#a3a3a3',fontSize : 14,marginTop : 12}]}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio commodi earum molestias, fugiat pariatur eos.</Text>
-            </View>
-            <View style = {[styles.profilePict,{borderRadius : 5,elevation : 5}]}>
-                <Entypo name={props.data.icon} size = {40} color='#fff'/>
-            </View>
-        </TouchableOpacity>
+        <View style = {{width:Dimensions.get('window').width,padding : 10,height : "60%"}}>
+            <TouchableOpacity 
+                onPress = {
+                    ()=>props.pressed()
+                }
+                style={[styles.doneButton,{backgroundColor : '#fff',paddingHorizontal : 10, elevation : 2,flexDirection : 'column'}]}
+                >
+                <View style = {[styles.profilePict,{borderRadius : 5,elevation : 5}]}>
+                    <Entypo name={props.data.icon} size = {40} color='#fff'/>
+                </View>
+                <View style = {[{justifyContent:'flex-start',paddingHorizontal :5,alignItems : 'center',marginTop : 10}]}>
+                    <Text style={[styles.textBanner,{color: '#000',fontSize : 20,marginBottom : 5}]}>{props.data.eventName}</Text>
+                    <Text style={styles.textBanner}>{strDate}</Text>
+                </View>
+            </TouchableOpacity>
+        </View>
     )
 }
 
 
-export default class EventScreen extends React.Component {
+export default class MapViewScreen extends React.Component {
     state = {
         eventName : "Pilih Event",
     }
     
     render() {
         return (
-            
             <ImageBackground
                 source = {require("../assets/image/bg_validation.png")}
                 style = {[styles.container]}
@@ -74,9 +75,7 @@ export default class EventScreen extends React.Component {
                         </TouchableOpacity>
                         <Text style = {[styles.textWelcome,{color : '#a3c7cc'}]}>EVENTS</Text>
                     </View>
-                    <TouchableOpacity
-                        onPress = {()=>this.props.addBtn()}
-                        >
+                    <TouchableOpacity>
                         <Image
                             style = {{height : 30, width : 30,marginHorizontal : 10}}
                             source = {require('../assets/image/btn_newMediaArticle_normal.png')}
@@ -84,16 +83,19 @@ export default class EventScreen extends React.Component {
                     </TouchableOpacity>
 
                 </View>
-                <ScrollView style ={[styles.container]}>
-                    {this.props.data.map(d => (
-                        
-                        <EventItems data={d} pressed={()=>
-                            {
-                                return this.props.onPressSec(d)
-                            }
-                        }/>
-                    ))}
-                </ScrollView>
+                <View>
+                    <ScrollView style ={{}} horizontal = {true} pagingEnabled = {true}>
+                        {this.props.data.map(d => (
+                            
+                            <MapItems data={d} pressed={()=>
+                                {
+                                    return this.props.onPressSec(d)
+                                }
+                            }/>
+                        ))}
+                    </ScrollView>
+                </View>
+                
             </ImageBackground>
         )
     }
@@ -127,14 +129,13 @@ const styles = StyleSheet.create({
     },
     profilePict : {
         alignSelf : 'center',
-        width : "40%",
-        height : "100%",
+        width : "80%",
+        height : "70%",
         borderWidth : 2,
         backgroundColor : '#a3c7cc',
         borderColor : 'white',
         justifyContent : 'center',
         alignItems : 'center',
-        marginVertical : 30,
     }, 
     formContainer : {
         margin : 8,
@@ -157,8 +158,8 @@ const styles = StyleSheet.create({
     },    
     doneButton : {
         alignSelf : 'center',
-        width : "94%",
-        height : 180,
+        width : "100%",
+        height : "100%",
         borderRadius : 6,
         paddingVertical : 10,
         flexDirection : 'row',

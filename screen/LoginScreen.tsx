@@ -10,7 +10,8 @@ import {
     KeyboardAvoidingView,
     View,
     StatusBar,
-    Alert
+    Alert,
+    Dimensions
 } from 'react-native';
 
 let al = ()=>Alert.alert(
@@ -63,7 +64,7 @@ export default class LoginScreen extends React.Component {
                             />
                     </View>
                 </KeyboardAvoidingView>
-                <TouchableOpacity style ={{padding : 10}} onPress = {(this.state.nama.length>3) ? ()=>{
+                <TouchableOpacity style ={{padding : 10}} onPress = {(this.state.nama.trim().length>3) ? ()=>{
                     let palindrom;
                     if(this.isPalindrom()) {
                         palindrom = "Name Is Palindrom!"
@@ -92,8 +93,8 @@ export default class LoginScreen extends React.Component {
 const styles = StyleSheet.create({
     container : {
         flex : 1,
-        width : "100%",
-        height : "100%", 
+        width : Dimensions.get('window').width,
+        height : Dimensions.get('window').height, 
     },
     screenContainer : {
         marginTop : StatusBar.currentHeight ,
